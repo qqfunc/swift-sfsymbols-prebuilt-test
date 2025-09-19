@@ -8,6 +8,10 @@ let package = Package(
     targets: [
         .target(name: "SFSymbols"),
         .testTarget(name: "SFSymbolsTests", dependencies: ["SFSymbols"]),
+        .plugin(
+            name: "SFSymbolsGeneratorPlugin",
+            capability: .buildTool()
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
