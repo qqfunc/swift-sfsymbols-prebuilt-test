@@ -1,0 +1,19 @@
+{
+  "version" : 1,
+  "indentation" : {
+    "spaces" : 4
+  },
+  "multilineTrailingCommaBehavior": "alwaysUsed",
+  "rules" : {
+    "AlwaysUseLiteralForEmptyCollectionInit" : true,
+    "BeginDocumentationCommentWithOneLineSummary" : true,
+    "NeverForceUnwrap" : true,
+    "NeverUseForceTry" : true,
+    "NeverUseImplicitlyUnwrappedOptionals" : true,
+    "NoLeadingUnderscores" : true,
+    "OmitExplicitReturns" : true,
+    "UseEarlyExits" : true,
+    "UseWhereClausesInForLoops" : true,
+    "ValidateDocumentationComments" : true
+  }
+}
