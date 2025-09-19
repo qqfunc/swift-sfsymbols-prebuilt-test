@@ -11,7 +11,7 @@ let package = Package(
             name: "SFSymbolsGenerator",
             dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser")]
         ),
-        .target(name: "SFSymbols"),
+        .target(name: "SFSymbols", plugins: [.plugin("SFSymbolsGeneratorPlugin")]),
         .testTarget(name: "SFSymbolsTests", dependencies: ["SFSymbols"]),
         .plugin(
             name: "SFSymbolsGeneratorPlugin",
