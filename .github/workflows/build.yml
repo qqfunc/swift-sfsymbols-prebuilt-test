@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-26
+    strategy:
+      fail-fast: false
+      matrix:
+        build:
+        - platform: macOS
+          destination: 'platform=macOS,name=My Mac'
+        - platform: iOS
+          destination: 'platform=iOS Simulator,OS=26.0,name=iPhone 17'
+        - platform: tvOS
+          destination: 'platform=tvOS Simulator,OS=26.0,name=Apple TV 4K (3rd generation)'
+        - platform: visionOS
+          destination: 'platform=visionOS Simulator,OS=26.0,name=Apple Vision Pro'
+        - platform: watchOS
+          destination: 'platform=watchOS Simulator,OS=26.0,name=Apple Watch Series 11 (46mm)'
+    steps:
+    - name: Checkout ${{ github.repository }}
+      uses: actions/checkout@v5.0.0
+    - run: xcodebuild -scheme swift-sfsymbols -showdestinations
+    - name: Test
+      run: xcodebuild -scheme swift-sfsymbols -destination '${{ matrix.build.destination }}' test
