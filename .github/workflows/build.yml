@@ -32,4 +32,4 @@ jobs:
     - name: Checkout ${{ github.repository }}
       uses: actions/checkout@v5.0.0
     - name: Test
-      run: xcodebuild -scheme swift-sfsymbols-Package -destination '${{ matrix.build.destination }}' test
+      run: xcodebuild -scheme swift-sfsymbols-prebuilt-Package -destination '${{ matrix.build.destination }}' test
