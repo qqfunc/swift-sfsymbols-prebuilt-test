@@ -31,7 +31,5 @@ jobs:
     steps:
     - name: Checkout ${{ github.repository }}
       uses: actions/checkout@v5.0.0
-    - run: xcodebuild -list
-    - run: xcodebuild -scheme swift-sfsymbols-prebuilt -showdestinations
     - name: Test
-      run: xcodebuild -scheme swift-sfsymbols-prebuilt -destination '${{ matrix.build.destination }}' test
+      run: xcodebuild -scheme SFSymbols -destination '${{ matrix.build.destination }}' test
