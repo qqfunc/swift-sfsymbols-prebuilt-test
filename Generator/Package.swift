@@ -4,7 +4,8 @@ import PackageDescription
 
 let package = Package(
     name: "swift-sfsymbols-generator",
-    products: [.executable(name: "SFSymbolsGenerator", targets: ["SFSymbolsGenerator"])],
+    platforms: [.macOS(.v10_13)],
+    products: [.plugin(name: "SFSymbolsGeneratorPlugin", targets: ["SFSymbolsGeneratorPlugin"])],
     dependencies: [.package(url: "https://github.com/apple/swift-argument-parser", from: "1.6.1")],
     targets: [
         .executableTarget(
