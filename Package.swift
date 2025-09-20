@@ -15,7 +15,8 @@ let package = Package(
         .testTarget(name: "SFSymbolsTests", dependencies: [.target(name: "SFSymbols")]),
         .plugin(
             name: "SFSymbolsGeneratorPlugin",
-            capability: .buildTool()
+            capability: .buildTool(),
+            dependencies: [.target("SFSymbolsGenerator")]
         ),
     ],
     swiftLanguageModes: [.v6]
