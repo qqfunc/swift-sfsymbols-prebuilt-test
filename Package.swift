@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-sfsymbols",
+    name: "swift-sfsymbols-prebuilt",
     products: [.library(name: "SFSymbols", targets: ["SFSymbols"])],
     dependencies: [.package(url: "https://github.com/apple/swift-argument-parser", from: "1.6.1")],
     targets: [
