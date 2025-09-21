@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """Update SF Symbols."""
 
 from __future__ import annotations
@@ -56,8 +58,7 @@ class SFSymbolsGenerator:
 
     def write_symbols_file(self) -> None:
         """Write ``SFSymbol+Symbols.swift`` file."""
-        # (self.path / "SFSymbol+Symbols.swift").write_text()
-        print(
+        (self.path / "SFSymbol+Symbols.swift").write_text(
             f"""{FILE_HEADER}
 
 public extension SFSymbol {{
