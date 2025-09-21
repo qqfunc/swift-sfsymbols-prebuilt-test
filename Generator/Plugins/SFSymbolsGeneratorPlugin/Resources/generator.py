@@ -28,7 +28,7 @@ class SFSymbolsGenerator:
         with SF_SYMBOLS_NAME_AVAILABILITY_PATH.open("rb") as plist_file:
             self.name_availability = plistlib.load(plist_file)
 
-        self.generate_availability()
+        self.generate_availability_attributes()
         self.generate_symbol_definitions()
 
     path: Path
