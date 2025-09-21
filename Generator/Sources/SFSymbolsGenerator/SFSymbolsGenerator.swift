@@ -9,8 +9,7 @@ import ArgumentParser
         let process = Process()
         process.arguments = [path]
         process.executableURL = Bundle.module.url(forResource: "generator", withExtension: "py")
-        try process.run()
-        // process.waitUntilExit()
+        process.waitUntilExit()
     }
 
 }
