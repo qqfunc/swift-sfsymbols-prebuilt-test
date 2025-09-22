@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-sfsymbols-prebuilt",
+    name: "swift-sfsymbols-artifacts",
     products: [.library(name: "SFSymbols", targets: ["SFSymbols"])],
     dependencies: [
         .package(path: "Generator"),
