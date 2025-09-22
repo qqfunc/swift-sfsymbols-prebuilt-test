@@ -105,4 +105,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except:  # noqa: E722
+        import traceback
+        Path("/Users/akihisa/Desktop/error.txt").write_text(traceback.format_exc())
