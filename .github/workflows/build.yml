@@ -32,6 +32,8 @@ jobs:
     - name: Checkout ${{ github.repository }}
       uses: actions/checkout@v5.0.0
     - name: Install SF Symbols
-      run: brew install --cask sf-symbols
+      run: |
+        brew update
+        brew install --cask sf-symbols
     - name: Test
       run: xcodebuild -scheme swift-sfsymbols-artifacts -destination '${{ matrix.build.destination }}' test
