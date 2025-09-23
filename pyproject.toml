@@ -1,13 +1,18 @@
+[dependency-groups]
+dev = ["ruff==0.13.1", "ty==0.0.1a21"]
+
 [tool.ruff]
 line-length = 79
+target-version = "py312"
 format.docstring-code-line-length = 72
 lint.select = ["ALL"]
 lint.ignore = [
-  "S603",   # subprocess-without-shell-equals-true
   "INP001", # implicit-namespace-package
-  "PYI021", # docstring-in-stub
   "D203",   # one-blank-line-before-class
   "D213",   # multi-line-summary-second-line
   "D418",   # overload-with-docstring
 ]
 lint.pycodestyle.max-doc-length = 72
+
+[tool.ty]
+environment.python-version = "3.12"

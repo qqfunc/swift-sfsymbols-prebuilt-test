@@ -5,15 +5,14 @@
 from __future__ import annotations
 
 import plistlib
-import subprocess
 import sys
 from argparse import ArgumentParser
 from pathlib import Path
-from tempfile import TemporaryDirectory
 from typing import TypedDict
-from urllib.request import urlopen
 
 DOWNLOAD_URL = "https://devimages-cdn.apple.com/design/resources/download/SF-Symbols-7.dmg"
+
+HDIUTIL_PATH = Path("/usr/bin/hdiutil")
 
 SF_SYMBOLS_PATH = Path("/Applications/SF Symbols.app")
 SF_SYMBOLS_METADATA_PATH = SF_SYMBOLS_PATH / "Contents/Resources/Metadata"
@@ -22,19 +21,6 @@ SF_SYMBOLS_NAME_AVAILABILITY_PATH = (
 )
 
 FILE_HEADER = "// This file is generated automatically. Do not edit."
-
-
-def download_app() -> None:
-    """Download SF Symbols.app"""
-    with TemporaryDirectory() as temp_dir:
-        temp_path = Path(temp_dir)
-        dmg_path = temp_path / "SF Symbols.dmg"
-        mount_path = temp_path / "Volume"
-        with urlopen(DOWNLOAD_URL) as res, dmg_path.open("wb") as f:
-            f.write(res.read())
-        subprocess.run(["hdiutil", "attach", str(dmg_path), "-readonly", "-mountpoint", str(mount_path)])
-        subprocess.run(["ls", "-R", str(mount_path)])
-        subprocess.run(["hdiutil", "detach", str(mount_path)])
 
 
 class SFSymbolsGenerator:
@@ -106,9 +92,7 @@ class Arguments:
 
 
 def main() -> None:
-    """Update SF Symbols."""
-    download_app()
-
+    """Generate SFSymbols package files."""
     if not SF_SYMBOLS_PATH.is_dir():
         sys.exit("ERROR: SF Symbols is not installed.")
 
