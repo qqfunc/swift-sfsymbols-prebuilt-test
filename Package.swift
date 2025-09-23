@@ -5,10 +5,7 @@ import PackageDescription
 let package = Package(
     name: "swift-sfsymbols-artifacts",
     products: [.library(name: "SFSymbols", targets: ["SFSymbols"])],
-    dependencies: [
-        .package(path: "Generator"),
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.6.1"),
-    ],
+    dependencies: [.package(path: "Generator")],
     targets: [
         .target(name: "SFSymbols", plugins: [.plugin(name: "SFSymbolsGeneratorPlugin", package: "Generator")]),
         .testTarget(name: "SFSymbolsTests", dependencies: [.target(name: "SFSymbols")]),
