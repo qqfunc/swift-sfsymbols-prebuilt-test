@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build ({{ matrix.build.platform }})
+    name: Build (${{ matrix.platform }})
     runs-on: macos-26
     strategy:
       fail-fast: false
@@ -42,7 +42,7 @@ jobs:
         'SKIP_INSTALL=NO'
 
   test:
-    name: Test ({{ matrix.build.platform }})
+    name: Test (${{ matrix.build.platform }})
     runs-on: macos-26
     strategy:
       fail-fast: false
