@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Update SF Symbols."""
+"""Generate SFSymbols package files."""
 
 from __future__ import annotations
 
