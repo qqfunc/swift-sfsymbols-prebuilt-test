@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "swift-sfsymbols-artifacts",
-    products: [.library(name: "SFSymbols", targets: ["SFSymbols"])],
+    products: [.library(name: "SFSymbols", type: .dynamic, targets: ["SFSymbols"])],
     dependencies: [.package(path: "Generator")],
     targets: [
         .target(
