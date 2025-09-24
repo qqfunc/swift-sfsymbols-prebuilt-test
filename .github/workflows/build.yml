@@ -30,14 +30,6 @@ jobs:
       run: |
         brew update
         brew install --cask sf-symbols
-    - run: >
-        xcodebuild
-        -scheme swift-sfsymbols-artifacts
-        -destination "generic/platform=${{ matrix.platform }}"
-        -exportPath "Artifacts/SFSymbols-${{ matrix.platform }}"
-        SKIP_INSTALL=NO
-        BUILD_LIBRARY_FOR_DISTRIBUTION=YES
-    - run: ls -R Artifacts
     - name: Build
       run: ./build.sh ${{ matrix.platform }}
 
