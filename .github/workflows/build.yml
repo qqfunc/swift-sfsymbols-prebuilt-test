@@ -39,17 +39,10 @@ jobs:
       run: xcodebuild -scheme swift-sfsymbols-artifacts -destination '${{ matrix.build.destination }}' test
     - name: Build
       run: ./build.sh ${{ matrix.build.platform }}
-    - name: Archive XCFramework
-      run: >
-        zip -r
-        Artifacts/SFSymbols-${{ matrix.build.platform }}.xcframework.zip
-        Artifacts/SFSymbols-${{ matrix.build.platform }}.xcframework
-    - name: Compute Checksum
-      run: swift package compute-checksum Artifacts/SFSymbols-${{ matrix.build.platform }}.xcframework.zip
     - name: Upload Artifact
       uses: actions/upload-artifact@v4.6.2
       with:
-        name: SFSymbols ${{ matrix.build.platform }}
-        path: Artifacts/SFSymbols-${{ matrix.build.platform }}.xcframework.zip
+        name: SFSymbols-${{ matrix.build.platform }}.xcframework
+        path: Artifacts/SFSymbols-${{ matrix.build.platform }}.xcframework
         if-no-files-found: 'error'
         retention-days: 1
