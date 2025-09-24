@@ -47,11 +47,11 @@ case $PLATFORM_ARG in
         ;;
 esac
 
-ARCHIVE_PATHS=()
+FRAMEWORK_PATHS=()
 
 # Build archive for the platform
 DEVICE_ARCHIVE_PATH="${OUTPUT_DIR}/${FRAMEWORK_NAME}-${DEVICE_PLATFORM}.xcarchive"
-ARCHIVE_PATHS+=("-archive" "${DEVICE_ARCHIVE_PATH}" "-framework" "${FRAMEWORK_NAME}.framework")
+FRAMEWORK_PATHS+=("-framework" "${DEVICE_ARCHIVE_PATH}/Products/usr/local/lib/${FRAMEWORK_NAME}.framework")
 
 echo "Building for ${DEVICE_PLATFORM}..."
 xcodebuild archive \
@@ -64,7 +64,7 @@ xcodebuild archive \
 # Build archive for the simulator if a simulator platform is defined
 if [ -n "${SIMULATOR_PLATFORM}" ]; then
     SIMULATOR_ARCHIVE_PATH="${OUTPUT_DIR}/${FRAMEWORK_NAME}-${SIMULATOR_PLATFORM}.xcarchive"
-    ARCHIVE_PATHS+=("-archive" "${SIMULATOR_ARCHIVE_PATH}" "-framework" "${FRAMEWORK_NAME}.framework")
+    FRAMEWORK_PATHS+=("-framework" "${SIMULATOR_ARCHIVE_PATH}/Products/usr/local/lib/${FRAMEWORK_NAME}.framework")
 
     echo "Building for ${SIMULATOR_PLATFORM}..."
     xcodebuild archive \
@@ -78,7 +78,7 @@ fi
 # Create the XCFramework
 echo "Creating XCFramework..."
 xcodebuild -create-xcframework \
-    "${ARCHIVE_PATHS[@]}" \
+    "${FRAMEWORK_PATHS[@]}" \
     -output "${OUTPUT_DIR}/${FRAMEWORK_NAME}-${PLATFORM_ARG}.xcframework"
 
 echo "XCFramework created successfully at ${OUTPUT_DIR}/${FRAMEWORK_NAME}-${PLATFORM_ARG}.xcframework"
