@@ -49,5 +49,7 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4.6.2
       with:
-        path: Artifacts/SFSymbols-${{ matrix.build.platform }}
         name: SFSymbols-${{ matrix.build.platform }}.xcframework.zip
+        path: Artifacts/SFSymbols-${{ matrix.build.platform }}
+        if-no-files-found: 'error'
+        retention-days: 1
