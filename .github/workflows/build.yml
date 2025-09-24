@@ -12,29 +12,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build (${{ matrix.platform }})
-    runs-on: macos-26
-    strategy:
-      fail-fast: false
-      matrix:
-        platform:
-        - macOS
-        - iOS
-        - tvOS
-        - visionOS
-        - watchOS
-    steps:
-    - name: Checkout ${{ github.repository }}
-      uses: actions/checkout@v5.0.0
-    - name: Install SF Symbols
-      run: |
-        brew update
-        brew install --cask sf-symbols
-    - name: Build
-      run: ./build.sh ${{ matrix.platform }}
-
-  test:
-    name: Test (${{ matrix.build.platform }})
+    name: Build (${{ matrix.build.platform }})
     runs-on: macos-26
     strategy:
       fail-fast: false
@@ -59,3 +37,17 @@ jobs:
         brew install --cask sf-symbols
     - name: Test
       run: xcodebuild -scheme swift-sfsymbols-artifacts -destination '${{ matrix.build.destination }}' test
+    - name: Build
+      run: ./build.sh ${{ matrix.build.platform }}
+    - name: Archive XCFramework
+      run: >
+        zip -r
+        Artifacts/SFSymbols-${{ matrix.build.platform }}.xcframework.zip
+        Artifacts/SFSymbols-${{ matrix.build.platform }}.xcframework
+    - name: Compute Checksum
+      run: swift package compute-checksum Artifacts/SFSymbols-${{ matrix.build.platform }}.xcframework.zip
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        path: Artifacts/SFSymbols-${{ matrix.build.platform }}
+        name: SFSymbols-${{ matrix.build.platform }}.xcframework.zip
