@@ -11,11 +11,13 @@ fi
 PLATFORM_ARG=$1
 SCHEME_NAME="swift-sfsymbols-artifacts"
 FRAMEWORK_NAME="SFSymbols"
+DERIVED_DATA_DIR="DerivedData"
 OUTPUT_DIR="Artifacts"
 
+
 # Clean up previous builds
-rm -rf "${OUTPUT_DIR}"
-mkdir -p "${OUTPUT_DIR}"
+rm -rf "${DERIVED_DATA_DIR}" "${OUTPUT_DIR}"
+mkdir -p "${DERIVED_DATA_DIR}" "${OUTPUT_DIR}"
 
 DEVICE_PLATFORM=""
 SIMULATOR_PLATFORM=""
@@ -40,7 +42,7 @@ case $PLATFORM_ARG in
     "macOS")
         DEVICE_PLATFORM="macOS"
         ;;
-    *) 
+    *)
         echo "Invalid platform: $PLATFORM_ARG"
         echo "Available platforms: iOS, tvOS, watchOS, visionOS, macOS"
         exit 1
@@ -54,12 +56,15 @@ DEVICE_ARCHIVE_PATH="${OUTPUT_DIR}/${FRAMEWORK_NAME}-${DEVICE_PLATFORM}.xcarchiv
 FRAMEWORK_PATHS+=("-framework" "${DEVICE_ARCHIVE_PATH}/Products/usr/local/lib/${FRAMEWORK_NAME}.framework")
 
 echo "Building for ${DEVICE_PLATFORM}..."
-xcodebuild archive \
+xcodebuild \
     -scheme "${SCHEME_NAME}" \
+    -configuration Release \
     -destination "generic/platform=${DEVICE_PLATFORM}" \
+    -derivedDataPath ${DERIVED_DATA_DIR} \
     -archivePath "${DEVICE_ARCHIVE_PATH}" \
+    BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
     SKIP_INSTALL=NO \
-    BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+    archive
 
 # Build archive for the simulator if a simulator platform is defined
 if [ -n "${SIMULATOR_PLATFORM}" ]; then
@@ -67,12 +72,15 @@ if [ -n "${SIMULATOR_PLATFORM}" ]; then
     FRAMEWORK_PATHS+=("-framework" "${SIMULATOR_ARCHIVE_PATH}/Products/usr/local/lib/${FRAMEWORK_NAME}.framework")
 
     echo "Building for ${SIMULATOR_PLATFORM}..."
-    xcodebuild archive \
+    xcodebuild \
         -scheme "${SCHEME_NAME}" \
+        -configuration Release \
         -destination "generic/platform=${SIMULATOR_PLATFORM}" \
+        -derivedDataPath ${DERIVED_DATA_DIR} \
         -archivePath "${SIMULATOR_ARCHIVE_PATH}" \
+        BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
         SKIP_INSTALL=NO \
-        BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+        archive
 fi
 
 # Create the XCFramework
