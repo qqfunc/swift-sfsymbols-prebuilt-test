@@ -81,6 +81,8 @@ xcodebuild \
     SKIP_INSTALL=NO \
     archive
 
+ls -R "${DEVICE_FRAMEWORK_PATH}"
+
 cp -r "${DEVICE_MODULE_PATH}" "${DEVICE_MODULES_DIR}"
 
 # Build archive for the simulator if a simulator platform is defined
