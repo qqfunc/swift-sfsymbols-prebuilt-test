@@ -49,7 +49,6 @@ case $PLATFORM_ARG in
         ;;
     "macOS")
         DEVICE_PLATFORM="macOS"
-        DEVICE_SDK="macosx"
         ;;
     *)
         echo "Invalid platform: $PLATFORM_ARG"
@@ -60,11 +59,17 @@ esac
 
 FRAMEWORK_PATHS=()
 
+if [ -n "${DEVICE_SDK}" ]; then
+    RELEASE_DIR_NAME="Release-${DEVICE_SDK}"
+else
+    RELEASE_DIR_NAME="Release"
+fi
+
 # Build archive for the platform
 DEVICE_ARCHIVE_PATH="${OUTPUT_DIR}/${FRAMEWORK_NAME}-${DEVICE_PLATFORM}.xcarchive"
 DEVICE_FRAMEWORK_PATH="${DEVICE_ARCHIVE_PATH}/Products/usr/local/lib/${FRAMEWORK_NAME}.framework"
 DEVICE_MODULES_DIR="${DEVICE_FRAMEWORK_PATH}/Modules"
-DEVICE_RELEASE_DIR="${BUILD_PRODUCTS_DIR}/Release-${DEVICE_SDK}"
+DEVICE_RELEASE_DIR="${BUILD_PRODUCTS_DIR}/${RELEASE_DIR_NAME}"
 DEVICE_MODULE_PATH="${DEVICE_RELEASE_DIR}/${FRAMEWORK_NAME}.swiftmodule"
 
 FRAMEWORK_PATHS+=("-framework" "${DEVICE_FRAMEWORK_PATH}")
@@ -80,8 +85,6 @@ xcodebuild \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
     SKIP_INSTALL=NO \
     archive
-
-ls -R "${DEVICE_RELEASE_DIR}"
 
 cp -r "${DEVICE_MODULE_PATH}" "${DEVICE_MODULES_DIR}"
 
