@@ -81,7 +81,7 @@ xcodebuild \
     SKIP_INSTALL=NO \
     archive
 
-ls -R "${DEVICE_FRAMEWORK_PATH}"
+ls -R "${BUILD_PRODUCTS_DIR}"
 
 cp -r "${DEVICE_MODULE_PATH}" "${DEVICE_MODULES_DIR}"
 
