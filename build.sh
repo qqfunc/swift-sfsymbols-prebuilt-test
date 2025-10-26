@@ -82,6 +82,7 @@ xcodebuild \
     -scheme "${SCHEME_NAME}" \
     -configuration Release \
     -destination "generic/platform=${DEVICE_PLATFORM}" \
+    -quiet \
     -derivedDataPath ${DERIVED_DATA_DIR} \
     -archivePath "${DEVICE_ARCHIVE_PATH}" \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
@@ -106,6 +107,7 @@ if [ -n "${SIMULATOR_PLATFORM}" ]; then
         -scheme "${SCHEME_NAME}" \
         -configuration Release \
         -destination "generic/platform=${SIMULATOR_PLATFORM}" \
+        -quiet \
         -derivedDataPath ${DERIVED_DATA_DIR} \
         -archivePath "${SIMULATOR_ARCHIVE_PATH}" \
         BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
