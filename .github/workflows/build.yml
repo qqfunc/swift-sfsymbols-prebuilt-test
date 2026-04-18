@@ -30,7 +30,7 @@ jobs:
           destination: 'platform=watchOS Simulator,OS=26.0,name=Apple Watch Series 11 (46mm)'
     steps:
     - name: Checkout ${{ github.repository }}
-      uses: actions/checkout@v5.0.0
+      uses: actions/checkout@v6.0.2
     - name: Install SF Symbols
       run: |
         brew update
@@ -40,7 +40,7 @@ jobs:
     - name: Build
       run: ./build.sh ${{ matrix.build.platform }}
     - name: Upload Artifact
-      uses: actions/upload-artifact@v4.6.2
+      uses: actions/upload-artifact@v7.0.1
       with:
         name: SFSymbols-${{ matrix.build.platform }}.xcframework
         path: Artifacts/SFSymbols-${{ matrix.build.platform }}.xcframework
