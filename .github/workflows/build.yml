@@ -21,13 +21,13 @@ jobs:
         - platform: macOS
           destination: 'platform=macOS,name=My Mac'
         - platform: iOS
-          destination: 'platform=iOS Simulator,OS=26.0,name=iPhone 17'
+          destination: 'platform=iOS Simulator,OS=26.4,name=iPhone 17'
         - platform: tvOS
-          destination: 'platform=tvOS Simulator,OS=26.0,name=Apple TV 4K (3rd generation)'
+          destination: 'platform=tvOS Simulator,OS=26.4,name=Apple TV 4K (3rd generation)'
         - platform: visionOS
-          destination: 'platform=visionOS Simulator,OS=26.0,name=Apple Vision Pro'
+          destination: 'platform=visionOS Simulator,OS=26.4,name=Apple Vision Pro'
         - platform: watchOS
-          destination: 'platform=watchOS Simulator,OS=26.0,name=Apple Watch Series 11 (46mm)'
+          destination: 'platform=watchOS Simulator,OS=26.4,name=Apple Watch Series 11 (46mm)'
     steps:
     - name: Checkout ${{ github.repository }}
       uses: actions/checkout@v6.0.2
@@ -35,6 +35,8 @@ jobs:
       run: |
         brew update
         brew install --cask sf-symbols
+    - name: Select Xcode
+      run: xcode-select -s /Applications/Xcode_26.4.app
     - name: Test
       run: xcodebuild -scheme swift-sfsymbols-artifacts -destination '${{ matrix.build.destination }}' test
     - name: Build
